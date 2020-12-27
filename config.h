@@ -84,6 +84,11 @@ static const char *firefoxcmd[] = {"firefox", NULL };
 static const char *inc_brightness[] = {"xbacklight", "-inc", "5", NULL};
 static const char *dec_brightness[] = {"xbacklight", "-dec", "5", NULL};
 
+/*volume commands */
+static const char *toggle_Mute[] = {"pamixer", "-t", NULL};
+static const char *inc_volume[] = {"pamixer", "-i", "5", NULL};
+static const char *dec_volume[] = {"pamixer", "-d", "5", NULL};
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -91,7 +96,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = firefoxcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
 	{ MODKEY,             		XK_F11,    spawn,          {.v = dec_brightness } },
-	{ MODKEY,             		XK_F12,    spawn,          {.v = inc_brightness } },
+	{ MODKEY,           		XK_F12,    spawn,          {.v = inc_brightness } },
+	{ MODKEY,             		XK_F1,     spawn,          {.v = toggle_Mute } },
+	{ MODKEY,             		XK_F2,     spawn,          {.v = dec_volume } },
+	{ MODKEY,             		XK_F3,     spawn,          {.v = inc_volume } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_a,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_s,      focusstack,     {.i = -1 } },
@@ -113,8 +121,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_x,      focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_z,  	   tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_x,	   tagmon,         {.i = +1 } },
-	{ MODKEY,              		XK_w,      view_adjacent,  { .i = +1 } },
-	{ MODKEY,             		XK_q,  	   view_adjacent,  { .i = -1 } },
+	{ MODKEY,              			XK_w,      view_adjacent,  { .i = +1 } },
+	{ MODKEY,             			XK_q,  	   view_adjacent,  { .i = -1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
