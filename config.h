@@ -1,8 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int gappx	    = 5;
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
@@ -23,11 +24,12 @@ static const char col_purple[]      = "#9400D3";
 static const char col_black[] 	    = "#000000";
 static const char col_gray[]	    = "#808080";
 static const char col_brightpurple[] = "#7F00FF";
+static const char col_clear[] 	    = "#a9a9a9";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_black, col_gray },
-	[SchemeSel]  = { col_brightpurple, col_black,  col_purple },
+	[SchemeSel]  = { col_brightpurple, col_black,  col_gray },
 };
 
 /* tagging */
