@@ -11,9 +11,9 @@ static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]          = {  "Wuncon Siji:size=10", "Hack Nerd Font:size=10"};
+static const char *fonts[]          = {"MesloLGS NF","Hack:size=10"};
 
-static const char dmenufont[]       = "monospace:size=10";
+static const char dmenufont[]       = "Hack:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -42,7 +42,8 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "Firefox",  NULL,       NULL,       0,       0,           -1 },
+	{ NULL, NULL, "Picture-in-Picture", 0, 1, -1 },
 };
 
 /* layout(s) */
@@ -71,7 +72,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_purple, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_purple, "-sf", col_gray4, "-h", "30", NULL };
 static const char *roficmd[] = {"rofi", "-show", NULL };
 
 /*static const char *termcmd[]  = { "st", NULL };*/
@@ -87,9 +88,9 @@ static const char *inc_brightness[] = {"xbacklight", "-inc", "5", NULL};
 static const char *dec_brightness[] = {"xbacklight", "-dec", "5", NULL};
 
 /*volume commands */
-static const char *toggle_Mute[] = {"pamixer", "-t", NULL};
-static const char *inc_volume[] = {"pamixer", "-i", "5", NULL};
-static const char *dec_volume[] = {"pamixer", "-d", "5", NULL};
+static const char *toggle_Mute[] = {"pactl", "set-sink-mute", "1", "toggle", NULL};
+static const char *inc_volume[] = {"pactl", "set-sink-volume", "1", "+5%", NULL};
+static const char *dec_volume[] = {"pactl", "set-sink-volume", "1", "-5%", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -134,7 +135,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask,             XK_grave,      quit,           {0} },
 };
 
 /* button definitions */
