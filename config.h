@@ -33,7 +33,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "main", "2", "3", "4", "5", "6", "7", "8", "music" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -46,6 +46,7 @@ static const Rule rules[] = {
 	{ NULL, NULL, "Picture-in-Picture", 0, 1, -1 },
 };
 
+#include "horizgrid.c"
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
@@ -56,6 +57,9 @@ static const Layout layouts[] = {
 	{ "[][]",      tile },    /* first entry is default */
 	{ "<>",      NULL },    /* no layout function means floating behavior */
 	{ "[]",      monocle },
+	{"###",	     horizgrid },
+	{"HHH",	     grid },
+	{NULL,       NULL },
 };
 
 /* key definitions */
@@ -92,12 +96,15 @@ static const char *toggle_Mute[] = {"pactl", "set-sink-mute", "1", "toggle", NUL
 static const char *inc_volume[] = {"pactl", "set-sink-volume", "1", "+5%", NULL};
 static const char *dec_volume[] = {"pactl", "set-sink-volume", "1", "-5%", NULL};
 
+static const char *scrotcmd[] = {"sh", "$HOME/.scrot-select.sh", NULL};
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_f,      spawn,          {.v = firefoxcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
+	{ MODKEY|ShiftMask,             XK_v,      spawn,          {.v = scrotcmd } },
 	{ MODKEY,             		XK_F11,    spawn,          {.v = dec_brightness } },
 	{ MODKEY,           		XK_F12,    spawn,          {.v = inc_brightness } },
 	{ MODKEY,             		XK_F1,     spawn,          {.v = toggle_Mute } },
@@ -116,6 +123,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY|ShiftMask,                       XK_comma,  cyclelayout,      {.i = -1 } },
+	{ MODKEY|ShiftMask,                      XK_period,  cyclelayout,      {.i = +1 } },
 	{ MODKEY,                       XK_space,  spawn,      	   {.v = roficmd} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
